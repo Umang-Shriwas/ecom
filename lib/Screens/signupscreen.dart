@@ -1,4 +1,5 @@
 import 'package:ecom/Screens/homescreen.dart';
+import 'package:ecom/Screens/register.dart';
 import 'package:ecom/constants/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +149,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const Home(),
+              builder: (context) => const RegisterScreen(),
             ));
       } else {
         Fluttertoast.showToast(msg: "Something Went Wrong");

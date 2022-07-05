@@ -20,7 +20,10 @@ class _HomeState extends State<Home> {
           title: const Center(
               child: Text(
             "Collections",
-            style: TextStyle(fontSize: 25, color: Colors.black),
+            style: TextStyle(
+              fontSize: 25,
+              color: Colors.black,
+            ),
           )),
           backgroundColor: Colors.white,
           leading: IconButton(
@@ -94,12 +97,10 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.only(top: 10),
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  
                   itemBuilder: (context, index) => AdCard(),
                 ),
               ),
             ),
-
           ],
         ),
       ),
