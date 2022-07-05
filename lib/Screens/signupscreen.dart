@@ -1,4 +1,3 @@
-import 'package:ecom/Screens/homescreen.dart';
 import 'package:ecom/Screens/register.dart';
 import 'package:ecom/constants/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';

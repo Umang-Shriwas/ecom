@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:ecom/Screens/login.dart';
-import 'package:ecom/Screens/signup.dart';
 import 'package:ecom/Screens/signupscreen.dart';
 import 'package:ecom/constants/constant.dart';
 import 'package:flutter/material.dart';

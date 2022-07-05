@@ -2,7 +2,6 @@ import 'package:ecom/Screens/widgets/card.dart';
 import 'package:ecom/Screens/widgets/category.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/constant.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
