@@ -23,6 +23,7 @@ class _AdCardState extends State<AdCard> {
                 Container(
                   height: 200,
                   width: 200,
+                  
                   decoration: BoxDecoration(
                     color: Colors.indigo,
                     borderRadius: BorderRadius.only(
@@ -32,6 +33,7 @@ class _AdCardState extends State<AdCard> {
                         image: NetworkImage(
                             "https://assets.ajio.com/medias/sys_master/root/20220103/GJKA/61d33a35f997dd66230e9815/-473Wx593H-463599135-blue-MODEL.jpg")),
                   ),
+                  
                 ),
                 Positioned(
                   child: FavoriteButton(
@@ -48,11 +50,12 @@ class _AdCardState extends State<AdCard> {
             Padding(padding: EdgeInsets.only(left: 10,right: 10,top: 10,)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: [SizedBox(width: 0.005,),
                 Column(
                   children: [
+                    
                     Text("Rs:-1200"),
-                    Text("Black shade \nSpyke"),
+                    Text("  Black shade \n      Spyke"),
                   ],
                 ),
                 FloatingActionButton(

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -176,10 +177,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             //       builder: (context) => const Home(),
                             //     ));
 
-                            print("$_FirstNameController");
-                            print("$_LastNameController");
-                            print("$dateInput");
+                            print("${_FirstNameController.text}");
+                            print("${_LastNameController.text}");
+                            print("${dateInput.text}");
                             print("$gender");
+                            submit();
                           },
                           child: Text(
                             "your Details",
@@ -200,4 +202,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
           )),
     );
   }
+
+  Future<void> submit() {
+    CollectionReference users =
+        FirebaseFirestore.instance.collection('userData');
+
+    return users
+        .add({
+          'first_name': _FirstNameController.text,
+          'last_name': _LastNameController.text,
+          'dob': dateInput.text,
+          'gender': gender
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
 }
+

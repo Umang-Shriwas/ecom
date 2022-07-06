@@ -1,23 +1,22 @@
-import 'package:ecom/Screens/loginscreen.dart';
-import 'package:ecom/Screens/register.dart';
-import 'package:ecom/constants/constant.dart';
+import 'package:ecom/Screens/homescreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+import '../constants/constant.dart';
+
+class loginScreen extends StatefulWidget {
+  const loginScreen({ Key? key }) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<loginScreen> createState() => _loginScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _loginScreenState extends State<loginScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool _obscureText = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             height: 44,
           ),
           Text(
-            "Sign UP",
+            "Sign In",
             style: TextStyle(fontSize: 22.sp, color: Colors.white),
           ),
           SizedBox(
@@ -109,9 +108,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         style: ElevatedButton.styleFrom(
                             primary: AppColor.deepOrange),
                         onPressed: () {
-                          signup();
+                          signin();
                         },
-                        child: Text("Sign Up")),
+                        child: Text("Sign In")),
                     Row(
                       children: [
                         Text("does not hane a account click here?:-"),
@@ -119,15 +118,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           width: 10,
                         ),
                         TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const loginScreen(),
-                                ),
-                              );
-                            },
-                            child: Text("Sign in",
+                            onPressed: () {},
+                            child: Text("Sign Up",
                                 style: TextStyle(
                                     fontSize: 15.sp,
                                     color: AppColor.deepOrange)))
@@ -143,38 +135,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void signup() async {
+  void signin() async {
+    
     try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-
-      var userCredential = credential.user;
+  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    email: _emailController.text,
+    password: _passwordController.text,
+  );
+   var userCredential = credential.user;
       if (userCredential!.uid.isNotEmpty) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const RegisterScreen(),
+            builder: (context) => const Home(),
           ),
         );
       } else {
         Fluttertoast.showToast(msg: "Something Went Wrong");
         // print("something went wrong");
       }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        // print("something went wrong1");
-
-        Fluttertoast.showToast(msg: 'The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        Fluttertoast.showToast(
-            msg: 'The account already exists for that email.');
-        // print("something went wrong2");
-      }
-    } catch (e) {
-      print(e);
-    }
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'user-not-found') {
+    print('No user found for that email.');
+  } else if (e.code == 'wrong-password') {
+    print('Wrong password provided for that user.');
+  }
+}
   }
 }

@@ -2,7 +2,6 @@ import 'package:ecom/Screens/widgets/card.dart';
 import 'package:ecom/Screens/widgets/category.dart';
 import 'package:flutter/material.dart';
 
-
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -64,7 +63,7 @@ class _HomeState extends State<Home> {
               ],
             ),
             SizedBox(
-              height: 110,
+              height: 140,
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: ListView.builder(
@@ -91,7 +90,7 @@ class _HomeState extends State<Home> {
               ],
             ),
             SizedBox(
-              height: 290,
+              height: 300,
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: ListView.builder(
@@ -100,6 +99,48 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              height: 70,
+              width: 370,
+              decoration: BoxDecoration(
+                color: Colors.indigo,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
+                ),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 10,
+                  ),
+                  FloatingActionButton(
+                    backgroundColor: Colors.white,
+                    onPressed: () {},
+                    child: Icon(
+                      Icons.search_outlined,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 50,
+                  ),
+                  Text(
+                    "Find Something",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),SizedBox(width: 50,),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.filter_list_outlined,
+                        color: Colors.white,
+                        size: 30,
+                      ))
+                ],
+              ),
+            )
           ],
         ),
       ),
