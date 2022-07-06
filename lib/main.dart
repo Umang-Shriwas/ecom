@@ -1,4 +1,5 @@
 import 'package:ecom/Screens/SplashScreen.dart';
+import 'package:ecom/Screens/home2.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const SplashScreen(),
+        home: const Home2(),
       ),
     );
   }

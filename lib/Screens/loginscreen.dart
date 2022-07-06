@@ -1,3 +1,5 @@
+import 'package:ecom/Screens/Appbase.dart';
+import 'package:ecom/Screens/home2.dart';
 import 'package:ecom/Screens/homescreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -147,7 +149,7 @@ class _loginScreenState extends State<loginScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const Home(),
+            builder: (context) => const Appbase(),
           ),
         );
       } else {
