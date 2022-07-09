@@ -1,8 +1,22 @@
+import 'package:ecom/Screens/productscreen.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 
 class AdCard extends StatefulWidget {
-  const AdCard({Key? key}) : super(key: key);
+  
+  String name = '';
+  String image = '';
+  final price;
+  final description;
+
+  AdCard({Key? key,
+   required this.name,
+   this.price,
+   required this.image,
+   this.description,
+  }) : super(key: key);
+  
+
 
   @override
   State<AdCard> createState() => _AdCardState();
@@ -31,7 +45,7 @@ class _AdCardState extends State<AdCard> {
                         topRight: Radius.circular(20)),
                     image: DecorationImage(
                         image: NetworkImage(
-                            "https://assets.ajio.com/medias/sys_master/root/20220103/GJKA/61d33a35f997dd66230e9815/-473Wx593H-463599135-blue-MODEL.jpg")),
+                            widget.image)),
                   ),
                   
                 ),
@@ -54,14 +68,21 @@ class _AdCardState extends State<AdCard> {
                 Column(
                   children: [
                     
-                    Text("Rs:-1200"),
-                    Text("  Black shade \n      Spyke"),
+                    Text(widget.price),
+                    Text(widget.name +"\n" +widget.description),
                   ],
                 ),
                 FloatingActionButton(
                   foregroundColor: Colors.transparent,
                   backgroundColor: Colors.white,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Productscreen(),
+                        ),
+                      );
+                  },
                   child: Icon(
                     Icons.add,
                     color: Colors.black,

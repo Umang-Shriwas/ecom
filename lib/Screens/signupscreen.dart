@@ -120,7 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         TextButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => const loginScreen(),
@@ -153,7 +153,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       var userCredential = credential.user;
       if (userCredential!.uid.isNotEmpty) {
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const RegisterScreen(),

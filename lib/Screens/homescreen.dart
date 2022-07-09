@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecom/Screens/productscreen.dart';
 import 'package:ecom/Screens/widgets/card.dart';
 import 'package:ecom/Screens/widgets/category.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final Stream<QuerySnapshot> _usersStream =
+      FirebaseFirestore.instance.collection('Product',).snapshots();
+  final Stream<QuerySnapshot> _usersStream1 =
+      FirebaseFirestore.instance.collection('Category',).snapshots();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -66,11 +72,30 @@ class _HomeState extends State<Home> {
               height: 140,
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 6,
-                  itemBuilder: (context, index) => Category(),
-                ),
+                child: StreamBuilder<QuerySnapshot>(
+          stream: _usersStream1,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text('Something went wrong');
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text("Loading");
+            }
+
+            return ListView(
+              scrollDirection: Axis.horizontal,
+              children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data()! as Map<String, dynamic>;
+                return Category(
+                  names: data['Name'],
+                  images: data["Image"],
+                );
+              }).toList(),
+            );
+          },
+        ),
               ),
             ),
             Row(
@@ -93,9 +118,32 @@ class _HomeState extends State<Home> {
               height: 300,
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => AdCard(),
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: _usersStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Text("Loading");
+                    }
+
+                    return ListView(
+                      scrollDirection: Axis.horizontal,
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        return AdCard(
+                          name: data['product_name'],
+                          price: data['product_price'],
+                          description: data["product_description"],
+                          image: data["product_image"],
+                        );
+                      }).toList(),
+                    );
+                  },
                 ),
               ),
             ),
@@ -118,7 +166,9 @@ class _HomeState extends State<Home> {
                   ),
                   FloatingActionButton(
                     backgroundColor: Colors.white,
-                    onPressed: () {},
+                    onPressed: () {
+                      
+                    },
                     child: Icon(
                       Icons.search_outlined,
                       color: Colors.black,
@@ -130,7 +180,10 @@ class _HomeState extends State<Home> {
                   Text(
                     "Find Something",
                     style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),SizedBox(width: 50,),
+                  ),
+                  SizedBox(
+                    width: 50,
+                  ),
                   IconButton(
                       onPressed: () {},
                       icon: Icon(
